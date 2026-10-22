@@ -61,6 +61,13 @@ export default function App() {
 
   // Handle Login
   const handleLoginSuccess = (session: UserSession) => {
+    setAnalysts((prev) => {
+      const exists = prev.some((a) => a.id === session.analyst.id);
+      if (exists) {
+        return prev.map((a) => (a.id === session.analyst.id ? { ...a, ...session.analyst } : a));
+      }
+      return [session.analyst, ...prev];
+    });
     setUserSession(session);
     if (session.analyst.mustChangePassword) {
       setShowChangePasswordModal(true);

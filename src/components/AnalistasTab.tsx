@@ -156,7 +156,7 @@ export const AnalistasTab: React.FC<AnalistasTabProps> = ({
         diasEstudioTotales,
         role: 'usuario',
         mustChangePassword: true,
-        password: 'user123',
+        password: '1234',
       };
       onAddAnalyst(newAnalyst);
     }

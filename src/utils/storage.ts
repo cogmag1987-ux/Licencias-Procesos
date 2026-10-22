@@ -15,7 +15,37 @@ export function getStoredAnalysts(): Analyst[] {
       localStorage.setItem(STORAGE_KEYS.ANALYSTS, JSON.stringify(INITIAL_ANALYSTS));
       return INITIAL_ANALYSTS;
     }
-    return JSON.parse(raw);
+    const analysts: Analyst[] = JSON.parse(raw);
+    let modified = false;
+    let foundAdmin = false;
+    const migrated = analysts.map((a) => {
+      let updated = { ...a };
+      // Migrate admin email to official system email
+      if (a.role === 'admin' || a.id === 'ana-admin') {
+        foundAdmin = true;
+        if (updated.correo !== 'procesos.dgsisan@gmail.com') {
+          updated.correo = 'procesos.dgsisan@gmail.com';
+          modified = true;
+        }
+        if (a.password === 'admin' || !a.password) {
+          updated.password = '1234';
+          updated.mustChangePassword = true;
+          modified = true;
+        }
+      }
+      return updated;
+    });
+
+    // If admin is missing for any reason, prepend the default official admin
+    if (!foundAdmin) {
+      migrated.unshift(INITIAL_ANALYSTS[0]);
+      modified = true;
+    }
+
+    if (modified) {
+      localStorage.setItem(STORAGE_KEYS.ANALYSTS, JSON.stringify(migrated));
+    }
+    return migrated;
   } catch (e) {
     console.error('Error reading analysts from storage', e);
     return INITIAL_ANALYSTS;
@@ -59,7 +89,24 @@ export function getStoredNotifications(): NotificationLog[] {
       localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(INITIAL_NOTIFICATIONS));
       return INITIAL_NOTIFICATIONS;
     }
-    return JSON.parse(raw);
+    const notifications: NotificationLog[] = JSON.parse(raw);
+    let modified = false;
+    const migrated = notifications.map((n) => {
+      let item = { ...n };
+      if (item.remitente === 'cristianoscargonzalez@buenosaires.gob.ar') {
+        item.remitente = 'procesos.dgsisan@gmail.com';
+        modified = true;
+      }
+      if (item.destinatarioAdmin === 'cristianoscargonzalez@buenosaires.gob.ar') {
+        item.destinatarioAdmin = 'procesos.dgsisan@gmail.com';
+        modified = true;
+      }
+      return item;
+    });
+    if (modified) {
+      localStorage.setItem(STORAGE_KEYS.NOTIFICATIONS, JSON.stringify(migrated));
+    }
+    return migrated;
   } catch (e) {
     console.error('Error reading notifications from storage', e);
     return INITIAL_NOTIFICATIONS;
@@ -78,7 +125,17 @@ export function getStoredUserSession(): UserSession | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
     if (!raw) return null;
-    return JSON.parse(raw);
+    const session: UserSession = JSON.parse(raw);
+    if (session && session.analyst) {
+      if (
+        (session.analyst.role === 'admin' || session.analyst.id === 'ana-admin') &&
+        session.analyst.correo !== 'procesos.dgsisan@gmail.com'
+      ) {
+        session.analyst.correo = 'procesos.dgsisan@gmail.com';
+        localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(session));
+      }
+    }
+    return session;
   } catch (e) {
     return null;
   }

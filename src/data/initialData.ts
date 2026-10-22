@@ -6,7 +6,7 @@ export const INITIAL_ANALYSTS: Analyst[] = [
   {
     id: 'ana-admin',
     nombre: 'Cristian González',
-    correo: 'cristianoscargonzalez@buenosaires.gob.ar',
+    correo: 'procesos.dgsisan@gmail.com',
     cuit: '20-33221100-9',
     telefono: '+54 9 11 6688-9911',
     fechaNacimiento: '1987-03-20',
@@ -14,8 +14,8 @@ export const INITIAL_ANALYSTS: Analyst[] = [
     diasVacacionesTotales: 25,
     diasEstudioTotales: 20,
     role: 'admin',
-    mustChangePassword: false,
-    password: 'admin',
+    mustChangePassword: true,
+    password: '1234',
   },
   {
     id: 'ana-1',
@@ -500,9 +500,9 @@ export const INITIAL_NOTIFICATIONS: NotificationLog[] = [
   {
     id: 'notif-seed-1',
     fecha: '2026-10-28T09:15:00Z',
-    remitente: 'cristianoscargonzalez@buenosaires.gob.ar',
+    remitente: 'procesos.dgsisan@gmail.com',
     destinatario: 'rebecahelenagonzalez@buenosaires.gob.ar',
-    destinatarioAdmin: 'cristianoscargonzalez@buenosaires.gob.ar',
+    destinatarioAdmin: 'procesos.dgsisan@gmail.com',
     destinatarioSolicitante: 'rebecahelenagonzalez@buenosaires.gob.ar',
     solicitanteNombre: 'Rebeca González',
     tieneCertificado: true,
@@ -518,9 +518,9 @@ export const INITIAL_NOTIFICATIONS: NotificationLog[] = [
   {
     id: 'notif-seed-2',
     fecha: '2026-10-28T09:30:00Z',
-    remitente: 'cristianoscargonzalez@buenosaires.gob.ar',
+    remitente: 'procesos.dgsisan@gmail.com',
     destinatario: 'malvinasoledadgarcia@buenosaires.gob.ar',
-    destinatarioAdmin: 'cristianoscargonzalez@buenosaires.gob.ar',
+    destinatarioAdmin: 'procesos.dgsisan@gmail.com',
     destinatarioSolicitante: 'malvinasoledadgarcia@buenosaires.gob.ar',
     solicitanteNombre: 'Soledad García',
     tieneCertificado: true,

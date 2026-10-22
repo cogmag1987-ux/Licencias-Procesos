@@ -54,10 +54,18 @@ export interface UserSession {
   role: Role;
 }
 
+export interface SmtpConfig {
+  host: string;
+  port: number;
+  user: string;
+  pass: string;
+  from?: string;
+}
+
 export interface NotificationLog {
   id: string;
   fecha: string;
-  remitente: string; // cristianoscargonzalez@buenosaires.gob.ar
+  remitente: string; // procesos.dgsisan@gmail.com
   destinatario: string; // Correo del analista beneficiario
   destinatarioAdmin: string; // Correo oficial del Administrador
   destinatarioSolicitante: string; // Correo de quien envió la solicitud (respaldo)
@@ -71,4 +79,7 @@ export interface NotificationLog {
   telefono: string;
   whatsappUrl: string;
   leido: boolean;
+  emailEnviadoSmtp?: boolean;
+  emailEnviadoMensaje?: string;
 }
+

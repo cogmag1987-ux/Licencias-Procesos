@@ -144,21 +144,41 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
                   </div>
                 </div>
 
-                {/* WhatsApp button */}
-                <div className="flex items-center justify-between pt-1">
+                {/* Actions: Webmail & WhatsApp */}
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-1">
                   <span className="text-[11px] text-slate-500 font-medium">
                     WhatsApp Analista: <span className="font-mono tabular-nums">{notif.telefono}</span>
                   </span>
-                  <a
-                    href={notif.whatsappUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold text-xs transition-colors shadow-2xs space-x-1.5 cursor-pointer"
-                  >
-                    <MessageSquare className="w-3.5 h-3.5" />
-                    <span>Abrir en WhatsApp</span>
-                    <ExternalLink className="w-3 h-3 ml-0.5 opacity-80" />
-                  </a>
+                  <div className="flex items-center space-x-2">
+                    <a
+                      href={`https://outlook.office.com/mail/deeplink/compose?to=${encodeURIComponent(
+                        `${notif.destinatarioAdmin}, ${notif.destinatarioSolicitante}`
+                      )}&subject=${encodeURIComponent(
+                        `[DGSISAN Procesos] Notificación de Licencia - ${notif.analistaNombre} (${notif.motivo})`
+                      )}&body=${encodeURIComponent(
+                        `Notificación Oficial de Licencia DGSISAN\n\nAnalista: ${notif.analistaNombre}\nMotivo: ${notif.motivo}\nFecha Inicio: ${formatDateDisplay(notif.fechaInicio)}\nDías Hábiles: ${notif.diasHabiles}\nRemitente Oficial: ${notif.remitente}\nAdministrador: ${notif.destinatarioAdmin}\nRespaldo Solicitante: ${notif.destinatarioSolicitante}`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-2.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 rounded-lg font-medium text-xs transition-colors space-x-1 cursor-pointer"
+                      title="Abrir y enviar correo en Webmail GCBA / Outlook"
+                    >
+                      <Mail className="w-3.5 h-3.5" />
+                      <span>Webmail GCBA</span>
+                      <ExternalLink className="w-3 h-3 ml-0.5 opacity-70" />
+                    </a>
+
+                    <a
+                      href={notif.whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-semibold text-xs transition-colors shadow-2xs space-x-1.5 cursor-pointer"
+                    >
+                      <MessageSquare className="w-3.5 h-3.5" />
+                      <span>WhatsApp</span>
+                      <ExternalLink className="w-3 h-3 ml-0.5 opacity-80" />
+                    </a>
+                  </div>
                 </div>
               </div>
             ))
@@ -168,7 +188,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         {/* Footer */}
         <div className="px-6 py-3 bg-slate-50 border-t border-slate-200 flex justify-between items-center text-xs text-slate-500">
           <span>
-            Remitente: <strong className="font-mono text-slate-700">cristianoscargonzalez@buenosaires.gob.ar</strong>
+            Remitente: <strong className="font-mono text-slate-700">procesos.dgsisan@gmail.com</strong>
           </span>
           <button
             onClick={onClose}
