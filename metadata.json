@@ -1,0 +1,6 @@
+{
+  "name": "DGSISAN Procesos - Gestión de Licencias",
+  "description": "Sistema integral de gestión, control y calendario de licencias para analistas de DGSISAN Procesos - GCBA",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
